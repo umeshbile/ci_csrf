@@ -8,6 +8,8 @@ class Curd extends CI_Controller{
     }
 
     public function index(){
+        
+        $this->output->cache('showrecords');
         $this->security->get_csrf_hash();
         $data['title'] ='Curd CSRF';
         $this->load->view('include/header',$data);
@@ -131,6 +133,10 @@ class Curd extends CI_Controller{
              'token' => $this->security->get_csrf_hash(),
              'message' => 'success'
         ];
+    }
+
+    public function deletecache(){
+        $this->output->delete_cache();
     }
 }
 ?>

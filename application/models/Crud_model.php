@@ -7,7 +7,9 @@ class Crud_model extends CI_Model{
         $this->table = 'user';
     }
 
-    public function fetch($where="",$limit="",$offset="",$order=""){
+    public function fetch($where="",$limit="",$offset="",$order="" ){
+        
+         $this->db->cache_on();
         if(!empty($where)){
             $this->db->where($where);
         }
@@ -32,11 +34,13 @@ class Crud_model extends CI_Model{
     }
 
     public function insert($data){
+        $this->db->cache_delete('curd','show');
         $result = $this->db->insert($this->table,$data);
         return $result = true ? true : false;
     }
 
     public function update($data, $where){
+        $this->db->cache_delete('curd','show');
             if($where != ''){
                 $this->db->where($where);
             }
@@ -45,6 +49,7 @@ class Crud_model extends CI_Model{
     }
 
     public function delete($where){
+        $this->db->cache_delete('curd','show');
         if($where != ''){
             $this->db->where($where);
         }
